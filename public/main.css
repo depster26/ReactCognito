@@ -1,0 +1,60 @@
+body {
+  font-family: Poppins, sans-serif, Arial, Helvetica;
+  font-size: 0.875rem;
+  background-color: #f7f7f7;
+}
+
+.navbar {
+  padding: 6px 3px;
+}
+
+.navbar-brand {
+  padding: 6px 0;
+}
+
+.nav-item > .btn-link {
+  color: #ffffff;
+}
+
+.alert {
+  padding: 0.95rem 0.95rem;
+}
+
+.pwd-item-valid {
+  color: green;
+  margin-bottom: 0.3rem;
+}
+
+.pwd-item-invalid {
+  color: red;
+  margin-bottom: 0.3rem;
+}
+
+.small,
+small {
+  font-size: 0.75rem;
+}
+
+.auth-links > * {
+  color: #ffffff;
+}
+
+.navbar-text {
+  padding-right: 0.5rem;
+}
+
+.form-control {
+  font-size: 0.85rem;
+}
+
+.form-label {
+  margin-bottom: 3px;
+}
+
+label::after {
+  content: ":";
+}
+
+label.required::before {
+  content: "* ";
+}

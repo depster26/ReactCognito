@@ -1,0 +1,79 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Base script for setting up a new Cognito User Pool and Identity Pool",
+    "Parameters": {
+        "userPoolName": {
+            "Type": "String",
+            "Description": "The name of the Cognito User Pool to be created"
+        },
+        "userPoolClientName": {
+            "Type": "String",
+            "Description": "The name of the client associated with the User Pool"
+        },
+        "userIdentityPoolName": {
+            "Type": "String",
+            "Description": "The name of the Cognito Identity Pool"
+        }
+    },
+    "Resources": {
+        "CognitoUserPool": {
+            "Type": "AWS::Cognito::UserPool",
+            "Properties": {
+                "UserPoolName": {
+                    "Ref": "userPoolName"
+                },
+                "UsernameConfiguration": {
+                    "CaseSensitive": false
+                },
+                "Schema": [
+                    {
+                        "AttributeDataType": "String",
+                        "Name": "email",
+                        "Required": true,
+                        "Mutable": true
+                    },
+                    {
+                        "AttributeDataType": "String",
+                        "Name": "name",
+                        "Required": true,
+                        "Mutable": true
+                    },
+                    {
+                        "AttributeDataType": "String",
+                        "Name": "account_id",
+                        "Required": false,
+                        "Mutable": true
+                    }
+                ],
+                "Policies": {
+                    "PasswordPolicy": {
+                        "MinimumLength": 8,
+                        "RequireLowercase": true,
+                        "RequireUppercase": true,
+                        "RequireNumbers": true,
+                        "RequireSymbols": true,
+                        "TemporaryPasswordValidityDays": 2
+                    }
+                }
+            }
+        },
+        "CognitoUserPoolClient": {
+            "Type": "AWS::Cognito::UserPoolClient",
+            "DependsOn": "CognitoUserPool",
+            "Properties": {
+                "ClientName": {
+                    "Ref": "userPoolClientName"
+                },
+                "UserPoolId": {
+                    "Ref": "CognitoUserPool"
+                },
+                "RefreshTokenValidity": 2,
+                "ExplicitAuthFlows": [
+                    "ALLOW_ADMIN_USER_PASSWORD_AUTH",
+                    "ALLOW_REFRESH_TOKEN_AUTH",
+                    "ALLOW_USER_PASSWORD_AUTH"
+                ]
+            }
+        }
+    }
+}
