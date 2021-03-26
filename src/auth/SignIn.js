@@ -26,7 +26,6 @@ const SignIn = () => {
       dispatch(setIsWorking(true));
       try {
         const user = await Auth.signIn(email, password);
-        console.log(user);
         if (user.challengeName === COGNITO_CHALLENGE_PWD_REQUIRED) {
           dispatch(setCognitoUser(user));
         } else {
